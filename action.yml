@@ -1,0 +1,47 @@
+name: Set up and run Cavalry
+description: "Install and run the unittest framework for containerized applications."
+
+inputs:
+  directory:
+    description: "Set working directory"
+    required: false
+    default: "."
+
+  engine:
+    description: "Choose the engine: podman or docker"
+    required: false
+    default: docker
+
+  format:
+    description: "Choose the image format: oci or docker"
+    required: false
+    default: oci
+
+  extra:
+    description: "Add extra flags to the cavalry command line"
+    required: false
+
+runs:
+  using: composite
+  steps:
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
+
+    - name: Install cavalry
+      run: go install github.com/gblach/cavalry@latest
+      shell: bash
+
+    - name: Show version
+      run: cavalry -v
+      shell: bash
+
+    - name: Run tests
+      run: cavalry -c ${{ inputs.directory }} -e ${{ inputs.engine }} -f ${{ inputs.format }} ${{ inputs.extra }}
+      shell: bash
+
+branding:
+  icon: layers
+  color: purple
