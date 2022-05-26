@@ -9,7 +9,7 @@ See [action.yml](action.yml)
 
 ```yaml
 steps:
-- uses: actions/checkout@v2
+- uses: actions/checkout@v3
 - uses: gblach/cavalry-action@v1
   with:
     directory: directory
@@ -23,7 +23,7 @@ before cavalry-action.
 
 ```yaml
 steps:
-  - uses: actions/checkout@v2
+  - uses: actions/checkout@v3
   -
     name: Login to GitHub Container Registry
     uses: docker/login-action@v1
